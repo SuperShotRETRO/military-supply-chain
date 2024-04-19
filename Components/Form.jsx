@@ -13,7 +13,7 @@ function Form({setCreateShipmentModel, createShipmentModel, createShipment}) {
       await createShipment(shipment);
     }
     catch(error){
-      console.log("Eroor creating item");
+      console.log("Error creating item");
     }
   };
 

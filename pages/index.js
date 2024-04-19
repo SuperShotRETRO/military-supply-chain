@@ -8,6 +8,7 @@ import{
   CompleteShipment,
   GetShipment,
   StartShipment,
+  AllShipment,
 } from "../Components/index";
 
 import { TrackingContext } from '@/Context/Tracking';
@@ -28,6 +29,7 @@ const index = () => {
   const [startModel, setStartModel] = useState(false);
   const [completeModel, setCompleteModel] = useState(false);
   const [getModel, setGetModel] = useState(false);
+  const [countModel, setCountModel] = useState(false);
   const [allShipmentsData, setAllShipmentsData] = useState();
 
   useEffect(() => {
@@ -46,6 +48,7 @@ const index = () => {
         setCompleteModel={setCompleteModel}
         setGetModel={setGetModel}
         setStartModel={setStartModel}
+        setCountModel={setCountModel}
       />
       <Table
         setCreateShipmentModel={setCreateShipmentModel}
@@ -76,6 +79,11 @@ const index = () => {
         startModel={startModel}
         setStartModel={setStartModel}
         startShipment={startShipment}
+      />
+      <AllShipment
+        countModel={countModel}
+        setCountModel={setCountModel}
+        getShipmentsCount={getShipmentsCount}
       />
     </>
   );

@@ -51,7 +51,7 @@ function Table({setCreateShipmentModel, allShipmentsData}) {
             </tr>
           </thead>
           <tbody className='text-gray-600 divide-y'>
-            {allShipmentsData?.map((shipment, idx) => {
+            {allShipmentsData?.map((shipment, idx) => (
               <tr key={idx}>
                 <td className='px-6 py-4 whitespace-nowrap'>
                   {shipment.sender.slice(0, 15)}...
@@ -78,7 +78,7 @@ function Table({setCreateShipmentModel, allShipmentsData}) {
                   {shipment.status == 0 ? "Pending" : shipment.status == 1 ? "IN_TRANSIT" : "Delivered" }
                 </td>
               </tr>
-            })}
+            ))}
           </tbody>
         </table>
       </div>

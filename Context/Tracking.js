@@ -22,16 +22,16 @@ export const TrackingProvider = ({ children }) => {
     try {
       const web3Modal = new Web3Modal();
       const connection = await web3Modal.connect();
-      const provider = new ethers.provider.Web3Provider(connection);
-      const signer = provider.getSigner();
+      const provider = new ethers.BrowserProvider(connection);
+      const signer = await provider.getSigner();
       const contract = fetchContract(signer);
       const createItem = await contract.createShipment(
         receiver,
         new Date(pickupTime).getTime(),
         distance,
-        ethers.utils.parseUnits(price, 18),
+        ethers.parseUnits(price, 18),
         {
-          value: ethers.utils.parseUnits(price, 18),
+          value: ethers.parseUnits(price, 18),
         }
       );
       await createItem.wait();
@@ -43,17 +43,17 @@ export const TrackingProvider = ({ children }) => {
 
   const getAllShipment = async () => {
     try {
-      const provider = new ethers.providers.JsonRpcProvider();
+      const provider = new ethers.JsonRpcProvider();
       const contract = fetchContract(provider);
 
       const shipments = await contract.getAllTransactions();
       const allShipments = shipments.map((shipment) => ({
         sender: shipment.sender,
         receiver: shipment.receiver,
-        price: ethers.utils.formatEther(shipment.price.toString()),
-        pickupTime: shipment.pickupTime.toNumber(),
-        deliveryTime: shipment.deliveryTime.toNumber(),
-        distance: shipment.distance.toNumber(),
+        price: ethers.formatEther(shipment.price.toString()),
+        pickupTime: parseInt(shipment.pickupTime),
+        deliveryTime: parseInt(shipment.deliveryTime),
+        distance: parseInt(shipment.distance),
         isPaid: shipment.isPaid,
         status: shipment.status,
       }));
@@ -70,38 +70,34 @@ export const TrackingProvider = ({ children }) => {
       const accounts = await window.ethereum.request({
         method: "eth_accounts",
       });
-      const provider = new ethers.providers.JsonRpcProvider();
+      const provider = new ethers.JsonRpcProvider();
       const contract = fetchContract(provider);
       const shipmentsCount = await contract.getShipmentsCount(accounts[0]);
-      return shipmentsCount.toNumber();
+      return parseInt(shipmentsCount);
     } catch (error) {
       console.log("Error getting shipment count", error);
     }
   };
 
-  const completeShipment = async (completeShipment) => {
-    console.log(completeShipment);
-
-    const { receiver, index } = completeShipment;
+  const completeShipment = async (completeShip) => {
+    const { receiver, index } = completeShip;
     try {
       if (!window.ethereum) return "Install MetaMask";
 
       const accounts = await window.ethereum.request({
         method: "eth_accounts",
       });
+      console.log(receiver);
       const web3Modal = new Web3Modal();
       const connection = await web3Modal.connect();
-      const provider = new ethers.providers.Web3Provider(connection);
-      const signer = provider.getSigner();
+      const provider = new ethers.BrowserProvider(connection);
+      const signer = await provider.getSigner();
       const contract = fetchContract(signer);
 
       const transaction = await contract.completeShipment(
         accounts[0],
         receiver,
-        index,
-        {
-          gasLimit: 300000,
-        }
+        parseInt(index),
       );
 
       transaction.wait();
@@ -120,20 +116,21 @@ export const TrackingProvider = ({ children }) => {
         method: "eth_accounts",
       });
 
-      const provider = new ethers.providers.JsonRpcProvider();
+      const provider = new ethers.JsonRpcProvider();
       const contract = fetchContract(provider);
       const shipment = await contract.getShipment(accounts[0], index * 1);
 
       const SingleShipment = {
         sender: shipment[0],
         receiver: shipment[1],
-        pickupTime: shipment[2].toNumber(),
-        deliveryTime: shipment[3].toNumber(),
-        distance: shipment[4].toNumber(),
-        price: ethers.utils.formatEther(shipment[5].toString()),
+        pickupTime: parseInt(shipment[2]),
+        deliveryTime: parseInt(shipment[3]),
+        distance: parseInt(shipment[4]),
+        price: ethers.formatEther(shipment[5].toString()),
         status: shipment[6],
         isPaid: shipment[7],
       };
+      console.log(SingleShipment);
       return SingleShipment;
     } catch (error) {
       console.log("No Shipment", error);
@@ -152,8 +149,8 @@ export const TrackingProvider = ({ children }) => {
 
       const web3Modal = new Web3Modal();
       const connection = await web3Modal.connect();
-      const provider = new ethers.providers.Web3Provider(connection);
-      const signer = provider.getSigner();
+      const provider = new ethers.BrowserProvider(connection);
+      const signer = await provider.getSigner();
       const contract = fetchContract(signer);
       const shipment = await contract.startShipment(
         accounts[0],

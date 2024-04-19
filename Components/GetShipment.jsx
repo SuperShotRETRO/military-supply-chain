@@ -54,7 +54,7 @@ function GetShipment({ getModel, setGetModel, getShipment }) {
             </h4>
             <form
               onSubmit={(e) => {
-                e.preventDefault;
+                e.preventDefault();
               }}
             >
               <div className="relative mt-3">
@@ -84,7 +84,7 @@ function GetShipment({ getModel, setGetModel, getShipment }) {
                 </p>
                 <p>Distance: {singleShipmentData.distance}</p>
                 <p>Price: {singleShipmentData.price}</p>
-                <p>Status: {singleShipmentData.status}</p>
+                <p>Status: {singleShipmentData.status == 0 ? "Pending" : singleShipmentData.status == 1 ? "IN_TRANSIT" : "Delivered" }</p>
                 <p>
                   Paid:{" "}
                   {singleShipmentData.isPaid ? "Complete" : "Not Complete"}

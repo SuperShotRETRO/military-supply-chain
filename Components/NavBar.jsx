@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
+import images from "@/Images/index"
+import Image from "next/image"
 
 import { TrackingContext } from "@/Context/Tracking";
 import { Nav1, Nav2, Nav3 } from "../Components/index";
@@ -9,9 +11,9 @@ const NavBar = () => {
 
   const navigation = [
     { title: "Home", path: "#" },
-    { title: "Services", path: "#" },
-    { title: "Contact US", path: "#" },
-    { title: "Erc20", path: "#" },
+    { title: "Supply Chain", path: "#" },
+    { title: "Identity Verification", path: "#" },
+    { title: "Contract Verification", path: "#" },
   ];
 
   useEffect(() => {
@@ -23,7 +25,7 @@ const NavBar = () => {
 
   return (
     <nav
-      className={`bg-white pb-5 md:text-sm ${
+      className={`bg-black bg-opacity-90 pb-5 md:text-sm ${
         state
           ? "shadow-lg rounded-xl border mx-2 mt-2 md:shadow-none md:border-none md:mx-2 md:mt-0"
           : ""
@@ -32,12 +34,7 @@ const NavBar = () => {
       <div className='gap-x-14 items-center max-w-screen-xl mx-auto px-4 md:flex md:px-8"'>
         <div className="flex items-center justify-between py-5 md:block">
           <a href="javascript:void(0)">
-            <img
-              src="https://www.floatui.com/logo.svg"
-              alt="Float UI logo"
-              height={50}
-              width={120}
-            />
+            <Image src={images.logo} height={50} width={120}/>
           </a>
           <div className="md:hidden">
             <button
@@ -56,7 +53,7 @@ const NavBar = () => {
           <ul className="justify-center items-center space-y-6 md:flex md:space-x-6 md:space-y-0">
             {navigation.map((item, idx) => {
               return (
-                <li key={idx} className="text-gray-700 hover:text-gray-900">
+                <li key={idx} className="text-white transition-all duration-300 hover:text-lg">
                   <a href={item.path} className="block">{item.title}</a>
                 </li>
               );

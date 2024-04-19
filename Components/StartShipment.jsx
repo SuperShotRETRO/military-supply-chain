@@ -58,8 +58,8 @@ function StartShipment({ startModel, setStartModel, startShipment }) {
                   }
                 />
               </div>
-              <button onClick={() => startShipment()} className="block w-full mt-3 py-3 px-4 font-medium text-sm text-center text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 rounded-lg ring-offset-2 ring-indigo-600 focus:ring-2">
-                Get Details
+              <button onClick={() => startShipping()} className="block w-full mt-3 py-3 px-4 font-medium text-sm text-center text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 rounded-lg ring-offset-2 ring-indigo-600 focus:ring-2">
+                Start Shipment
               </button>
             </form>
           </div>

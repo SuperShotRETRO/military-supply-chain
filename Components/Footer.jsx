@@ -1,5 +1,7 @@
 import React from 'react'
 import {Fot1,Fot2} from "../Components/index";
+import images from "@/Images/index"
+import Images from "next/image"
 
 function Footer() {
 
@@ -27,7 +29,7 @@ function Footer() {
       <div className='max-w-screen-xl mx-auto px-4 text-gray-600 md:px-8'>
         <div className='justify-between sm:flex'>
           <div className='space-y-6'>
-            <img src="https://www.floatui.com/logo.svg" alt="" className='w-32' />
+            <Images src={images.logo} width={150}/>
             <p className='max-w-md'>
               Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quaerat magnam doloribus nulla, deleniti eveniet similique commodi id consequatur unde quasi veritatis culpa quo placeat, quas explicabo? Ullam recusandae consequatur tempora!
             </p>

@@ -2,7 +2,7 @@ import React from 'react'
 import images from "@/Images/index";
 import Image from "next/image"
 
-function Services({setOpenProfile,setCompleteModel,setGetModel,setStartModel}) {
+function Services({setOpenProfile,setCompleteModel,setGetModel,setStartModel,setCountModel}) {
 
   const team = [
     {
@@ -34,6 +34,8 @@ function Services({setOpenProfile,setCompleteModel,setGetModel,setStartModel}) {
       setStartModel(true);
     } else if (text === 4){
       setOpenProfile(true)
+    } else if (text == 5){
+      setCountModel(true)
     }
   };
 

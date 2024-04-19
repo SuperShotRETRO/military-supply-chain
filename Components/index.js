@@ -7,6 +7,7 @@ import Profile from "./Profile";
 import Services from "./Services";
 import StartShipment from "./StartShipment";
 import Table from "./Table";
+import AllShipment from "./AllShipment";
 
 //SVG
 import Fot1 from "./SVG/Fot1";
@@ -28,6 +29,7 @@ export {
     Services,
     StartShipment,
     Table,
+    AllShipment,
     //SVG
     Fot1,
     Fot2,
